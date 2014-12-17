@@ -6,12 +6,22 @@ require_once 'lib/Requests/library/Requests.php';
 
 class Inkmonk{
 
-	private static $version;
-	private static $url;
-	private static $key;
-	private static $secret;
+	public static $version;
+	public static $url;
+	public static $key;
+	public static $secret;
 	public static $site;
-	private static $mime_type = 'application/json';
+	public static $mime_type = 'application/json';
+
+	public static function get_x_hook_signature($post){
+		var_dump($category);
+		$message=self::$key.":".$post["category"].":".$post["resource"].":".$post["identifier"];
+		return hash_hmac('sha1', $message, self::$secret, FALSE);
+	}
+
+	public static function verify_signature($server, $post){
+		return $server["HTTP_X_HOOK_SIGNATURE"] == self::get_x_hook_signature($post);
+	}
 
 	public static function get_signed_authorization_header($public_key, $private_key, $message){
 		return base64_encode($public_key.':'.hash_hmac(
