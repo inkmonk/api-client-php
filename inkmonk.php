@@ -14,7 +14,6 @@ class Inkmonk{
 	public static $mime_type = 'application/json';
 
 	public static function get_x_hook_signature($post){
-		var_dump($category);
 		$message=self::$key.":".$post["category"].":".$post["resource"].":".$post["identifier"];
 		return hash_hmac('sha1', $message, self::$secret, FALSE);
 	}
