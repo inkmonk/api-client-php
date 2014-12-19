@@ -55,7 +55,7 @@ if(Inkmonk::verify_signature($_SERVER, $_POST)){
 			$current.="Fetching the data from server\n";
 			$claim = Inkmonk_Claim::get($_POST["identifier"]);
 		}
-		$current.="Claim converted to shipment id: ".$claim->shipment->id."\n";
+		$current.="Claim converted to shipment id: ".$claim->shipment_id."\n";
 	}
 }
 
