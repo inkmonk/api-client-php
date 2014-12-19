@@ -52,8 +52,7 @@ class Inkmonk{
 		else{
 			throw new Exception("Unsupported Request Method");
 		}
-
-		if($response->success){
+		if($response->status_code==200||$response->status_code==201||$response->status_code==204){
 			return json_decode($response->body, true);	
 		}else{
 			throw new Exception("Got Exception: ".$response->body["error"]);
