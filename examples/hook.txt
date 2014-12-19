@@ -1,0 +1,8 @@
+POST DATA: 
+category = claim_redemption
+resource = claims
+identifier = 32da4e156bdb4d9aa4f60250cbb77f00141218075943
+INCOMING SIGNATURE: ac34f770397b67d16b6c766e517f6ac365df2a06
+OUR SIGNATURE: ac34f770397b67d16b6c766e517f6ac365df2a06
+Fetching the data from result itself
+Claim converted to shipment id: http://localhost:5000/claims/32da4e156bdb4d9aa4f60250cbb77f00141218075943

@@ -5,7 +5,7 @@ include('../inkmonk.php');
 Inkmonk::init();
 
 
-$new_customer_params = array(
+/*$new_customer_params = array(
 	"name" => "Virat Kohli",
 	"email" => "vkohli@blah.com",
 	"address1" => "9, Seashell Apt",
@@ -15,7 +15,7 @@ $new_customer_params = array(
 	"country" => "US",
 	"postal_code" => "10008",
 	"contact_number" => "1-34-9008889"
-	);
+	);*/
 
 
 $merchandise = Inkmonk_Merchandise::all();
@@ -25,7 +25,7 @@ $m2 = $merchandise[1];
 
 
 $claims = Inkmonk_Claim::create(array(
-	"customers" => array("hford1@blah.com", $new_customer_params ),
+	"customers" => array("hford1@blah.com", "vkohli@blah.com" ),
 	"slots" => array(
 		array($m1, 1),
 		array($m2->skus, 2)
