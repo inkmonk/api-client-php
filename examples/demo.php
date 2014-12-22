@@ -14,39 +14,26 @@ $new_customer_params = array(
 	"state" => "California",
 	"country" => "US",
 	"postal_code" => "10008",
-	"contact_number" => "1-34-9008889"
+	"contact_number" => "1-34-9008889",
+	"reference" => "18"
 	);
 
 
 $merchandise = Inkmonk_Merchandise::all();
 $m1 = $merchandise[0];
-$m2 = $merchandise[1];
 
 
-
-$claims = Inkmonk_Claim::create(array(
-	"customers" => array($new_customer_params ),
+$claim = Inkmonk_Claim::create(array(
+	"customer" => $new_customer_params,
 	"slots" => array(
-		array($m1, 1),
-		array($m2->skus, 2)
+		array("choices"=> $m1,
+			  "quantity"=> 1),
 		),
 	"form_title" => "Claim Awesome Gifts"
 ));
 
+var_dump($claim->url);
 
-//var_dump($claims);
-foreach($claims as $claim){
-	var_dump($claim->url);
-}
+var_dump($claim->reference);
 
 
-$shipment = Inkmonk_Shipment::get('1');
-
-$merchandise = Inkmonk_Merchandise::all();
-
-
-var_dump($shipment->address1);
-
-foreach($merchandise as $merch){
-	var_dump($merch->name);
-}

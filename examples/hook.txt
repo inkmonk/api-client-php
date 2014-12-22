@@ -28,3 +28,19 @@ INCOMING SIGNATURE: c614f65f7837624dbbb48199b4690dcca161dd6f
 OUR SIGNATURE: c614f65f7837624dbbb48199b4690dcca161dd6f
 Fetching the data from result itself
 Claim converted to shipment id: 49
+POST DATA: 
+category = claim_redemption
+resource = claims
+identifier = 2f2d6ffe37f24d3f9a65941c7f163535141219152938
+INCOMING SIGNATURE: 8acfe36421e78eea6a0714e0fbb82c507a12bfff
+OUR SIGNATURE: 8acfe36421e78eea6a0714e0fbb82c507a12bfff
+Fetching the data from result itself
+Claim for customer 10 converted to shipment id: 50
+POST DATA: 
+category = claim_redemption
+resource = claims
+identifier = 06275abd3d8c4aa5854e9d436b929629141219154639
+INCOMING SIGNATURE: 7c98ff3e41e6f5a4f47101d81d81f89cb9f67467
+OUR SIGNATURE: 7c98ff3e41e6f5a4f47101d81d81f89cb9f67467
+Fetching the data from result itself
+Claim for customer 10 converted to shipment id: 51

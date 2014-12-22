@@ -55,7 +55,8 @@ class Inkmonk{
 		if($response->status_code==200||$response->status_code==201||$response->status_code==204){
 			return json_decode($response->body, true);	
 		}else{
-			throw new Exception("Got Exception: ".$response->body["error"]);
+			var_dump($response->status_code);
+			throw new Exception("Got Exception: ".$response->body);
 		}
 	}
 
@@ -156,17 +157,18 @@ class Inkmonk_Claim extends Inkmonk_Resource{
 
 	static function create($data){
 		for($j=0; $j<count($data['slots']); $j++){
-			if($data['slots'][$j][0] instanceof Inkmonk_Merchandise){
+			if($data['slots'][$j]["choices"] instanceof Inkmonk_Merchandise){
 				$sku_ids=array();
-				foreach($data['slots'][$j][0]->skus as $sku){
+				foreach($data['slots'][$j]["choices"]->skus as $sku){
 					$sku_ids[] = $sku->id;
 				}
-				$data['slots'][$j][0] = $sku_ids;
+				$data['slots'][$j]["choices"] = $sku_ids;
 			}
 			else{
-				for($i=0; $i<count($data['slots'][$j][0]); $i++){
-					if($data['slots'][$j][0][$i] instanceof Inkmonk_SKU){
-						$data['slots'][$j][0][$i] = $data['slots'][$j][0][$i]->id;
+				for($i=0; $i<count($data['slots'][$j]["choices"]); $i++){
+					if($data['slots'][$j]["choices"][$i] instanceof Inkmonk_SKU||
+						$data['slots'][$j]["choices"][$i] instanceof Inkmonk_Merchandise){
+						$data['slots'][$j]["choices"][$i] = $data['slots'][$j]["choices"][$i]->id;
 					}
 				}
 			}

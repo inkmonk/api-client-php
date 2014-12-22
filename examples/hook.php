@@ -47,15 +47,17 @@ $current.= "OUR SIGNATURE: ".Inkmonk::get_x_hook_signature($_POST)."\n";
 //Use the below snippet to verify the incoming request and carry out an action
 if(Inkmonk::verify_signature($_SERVER, $_POST)){
 	if($_POST["category"]=="claim_redemption"){
-		if(array_key_exists("instance", $_POST)){
+		if(array_key_exists("data", $_POST)){
 			$current.="Fetching the data from result itself\n";
-			$claim = new Inkmonk_Claim(json_decode($_POST["instance"], true));
+			$json = json_decode($_POST["data"], true);
+			$claim = new Inkmonk_Claim($json);
+			var_dump($json);
 		}
 		else{
 			$current.="Fetching the data from server\n";
-			$claim = Inkmonk_Claim::get($_POST["identifier"]);
+			$claim = Inkmonk_Claim::get($_POST["data"]);
 		}
-		$current.="Claim converted to shipment id: ".$claim->shipment_id."\n";
+		$current.="Claim for customer ".$claim->reference." converted to shipment id: ".$claim->shipment_id."\n";
 	}
 }
 
