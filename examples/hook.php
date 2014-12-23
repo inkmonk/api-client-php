@@ -22,7 +22,7 @@ to get the output as an object
 
 In case you have made the setting in our dashboard to accept full data, we will be 
 sending one more key 
-`instance` - This will contain the full data about the instance of the resource that
+`data` - This will contain the full data about the instance of the resource that
 is being sent. If it is a claim. It will be the full JSON structure of a claim as listed
 in our API. You can then save this data as you prefer.
 */
