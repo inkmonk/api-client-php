@@ -24,7 +24,7 @@ class Inkmonk{
 
 	public static function get_signed_authorization_header($public_key, $private_key, $message){
 		return base64_encode($public_key.':'.hash_hmac(
-			'sha1', $message, $private_key, FALSE));
+			'sha512', $message, $private_key, FALSE));
 	}
 
 	static function init(){
@@ -43,7 +43,7 @@ class Inkmonk{
 			'Content-Type' => self::$mime_type,
 			'Authorization' => self::get_signed_authorization_header(
 				  self::$key, self::$secret,
-				  $method.":".self::$version."/".$resource.":".self::$mime_type));
+				  $method.":"."/".self::$version."/".$resource.":".self::$mime_type));
 		if($method == 'GET'){
 			$response = Requests::get($url, $headers);	
 		}elseif($method == 'POST'){
@@ -129,8 +129,10 @@ class Inkmonk_Merchandise extends Inkmonk_Resource{
 	function __construct(array $params = array()){
 		parent::__construct($params);
 		$this->skus = array();
-		foreach($params["skus"] as $sku){
-			array_push($this->skus, new Inkmonk_SKU($sku));
+		if(array_key_exists("skus", $params)){
+			foreach($params["skus"] as $sku){
+				array_push($this->skus, new Inkmonk_SKU($sku));
+			}
 		}
 	}
 }
@@ -150,19 +152,19 @@ class Inkmonk_Shipment extends Inkmonk_Resource{
 class Inkmonk_Claim extends Inkmonk_Resource{
 	static protected $resource = 'claims';
 
-	function __construct(array $params = array()){
-		parent::__construct($params);
-		$this->url = Inkmonk::$site.$this->url;
-	}
-
 	static function create($data){
 		for($j=0; $j<count($data['slots']); $j++){
 			if($data['slots'][$j]["choices"] instanceof Inkmonk_Merchandise){
-				$sku_ids=array();
-				foreach($data['slots'][$j]["choices"]->skus as $sku){
-					$sku_ids[] = $sku->id;
+				if(array_key_exists("skus", $data['slots'][$j]["choices"])){
+					$sku_ids=array();
+					foreach($data['slots'][$j]["choices"]->skus as $sku){
+						$sku_ids[] = $sku->id;
+					}
+					$data['slots'][$j]["choices"] = $sku_ids;
 				}
-				$data['slots'][$j]["choices"] = $sku_ids;
+				else{
+					$data['slots'][$j]["choices"] = [$data['slots'][$j]["choices"]->id];
+				}
 			}
 			else{
 				for($i=0; $i<count($data['slots'][$j]["choices"]); $i++){

@@ -20,8 +20,9 @@ $new_customer_params = array(
 
 
 $merchandise = Inkmonk_Merchandise::all();
-$m1 = $merchandise[0];
+$m1 = $merchandise[15];
 
+var_dump($m1);
 
 $claim = Inkmonk_Claim::create(array(
 	"customer" => $new_customer_params,
@@ -35,5 +36,6 @@ $claim = Inkmonk_Claim::create(array(
 var_dump($claim->url);
 
 var_dump($claim->reference);
+
 
 
