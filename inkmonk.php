@@ -19,6 +19,8 @@ class Inkmonk{
 	}
 
 	public static function verify_signature($server, $post){
+		$sig = $server["HTTP_X_HOOK_SIGNATURE"];
+		echo "verifying $sig";
 		return $server["HTTP_X_HOOK_SIGNATURE"] == self::get_x_hook_signature($post);
 	}
 
@@ -155,16 +157,7 @@ class Inkmonk_Claim extends Inkmonk_Resource{
 	static function create($data){
 		for($j=0; $j<count($data['slots']); $j++){
 			if($data['slots'][$j]["choices"] instanceof Inkmonk_Merchandise){
-				if(array_key_exists("skus", $data['slots'][$j]["choices"])){
-					$sku_ids=array();
-					foreach($data['slots'][$j]["choices"]->skus as $sku){
-						$sku_ids[] = $sku->id;
-					}
-					$data['slots'][$j]["choices"] = $sku_ids;
-				}
-				else{
-					$data['slots'][$j]["choices"] = [$data['slots'][$j]["choices"]->id];
-				}
+				$data['slots'][$j]["choices"] = [$data['slots'][$j]["choices"]->id];
 			}
 			else{
 				for($i=0; $i<count($data['slots'][$j]["choices"]); $i++){

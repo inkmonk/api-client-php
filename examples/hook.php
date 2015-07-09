@@ -34,7 +34,7 @@ those lines with some DB handler code to save it to your DB. */
 
 $current = file_get_contents($file);
 
-$current.= "POST DATA: \n";
+$current.= "POST DATA: \n $_POST";
 $current.= "category = ".$_POST['category']."\n";
 $current.= "resource = ".$_POST['resource']."\n";
 $current.= "identifier = ".$_POST['identifier']."\n";
